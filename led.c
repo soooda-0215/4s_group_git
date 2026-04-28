@@ -72,33 +72,52 @@ void ledblinktime(int msec)
  * @brief 点灯・消灯の判断および実行関数
  * @details
  * 定期的に呼び出されることにより、
- * - _ledValue.modeが0(常時点灯)であれば点灯する
- * - _ledValue.modeが1(点滅)であれば、(_ledValue.period / 2)[msec]経過ごとに、
- *   点灯と消灯を切り替える
+ * - _ledValue.modeが0(常時点灯)であれば点灯(ledout(_ledValue.pattern))する
+ * - _ledValue.modeが1(点滅)であれば、周期を200の倍数に切り捨てて点滅
+ * - _ledValue.modeが2(点滅)であれば、周期を200の倍数に四捨五入して点滅
+ * - _ledValue.modeが3(点滅)であれば、周期を200の倍数に近似して点滅
  */
 void ledexec(void)
 {
   int current_time = timer_get_timerv0()->count;
-  int half_period = _ledValue.period / 2;  // 周期の半分[msec]
-  int elapsed_time = (current_time - last_blink_time) * 10;  // タイマーの分解能は10msec
+  int adjusted_period = _ledValue.period;  // 周期調整用変数
+  int half_period;
+  int elapsed_time;
 
+  // Mode に応じた周期の近似計算
   if (_ledValue.mode == 0) {
-    // Mode 0: 常時点灯
+    // Mode 0: 常時点灯（周期計算不要）
     ledout(_ledValue.pattern);
-  } else if (_ledValue.mode >= 1) {
-    // Mode 1～3: 点滅
-    if (elapsed_time >= half_period) {
-      // 周期の半分経過したので、点灯/消灯を切り替える
-      led_is_on = !led_is_on;
-      
-      if (led_is_on) {
-        ledout(_ledValue.pattern);  // 点灯
-      } else {
-        ledout(0);  // 消灯
-      }
-      
-      last_blink_time = current_time;  // 時刻を更新
+    return;
+  } else if (_ledValue.mode == 1) {
+    // Mode 1: 200の倍数に切り捨て
+    adjusted_period = (_ledValue.period / 200) * 200;
+  } else if (_ledValue.mode == 2) {
+    // Mode 2: 200の倍数に四捨五入
+    adjusted_period = ((_ledValue.period + 100) / 200) * 200;
+  } else if (_ledValue.mode == 3) {
+    // Mode 3: 200の倍数に近似（Mode2と同じ）
+    adjusted_period = ((_ledValue.period + 100) / 200) * 200;
+  }
+
+  // 調整後の周期の半分を計算
+  half_period = adjusted_period / 2;
+  
+  // タイマーの分解能は10msec
+  elapsed_time = (current_time - last_blink_time) * 10;
+
+  // Mode 1～3: 点滅処理
+  if (elapsed_time >= half_period) {
+    // 周期の半分経過したので、点灯/消灯を切り替える
+    led_is_on = !led_is_on;
+    
+    if (led_is_on) {
+      ledout(_ledValue.pattern);  // 点灯
+    } else {
+      ledout(0);  // 消灯
     }
+    
+    last_blink_time = current_time;  // 時刻を更新
   }
 }
 
