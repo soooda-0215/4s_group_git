@@ -1,36 +1,31 @@
 /**
  * @file led.c
- * @brief LEDの制御モジュール - V1対応版
+ * @brief LEDの制御モジュール
+ * @author Yuji KATSUTA, Makoto TANABE
  */
-
 #include "led.h"
 #include "timer.h"
 
+#ifndef H8_H
+#define H8_H
 #include <stdlib.h>
 #include <h8/reg3067.h>
 #include <mes2.h>
+#endif /* H8_H */
 
-/* ===== 状態構造体 ===== */
-static ledv _ledValue = {
-  .pattern = 0x05,
-  .period  = 1000,
-  .mode    = 1
-};
-
-/* ===== 内部状態 ===== */
+static ledv _ledValue = {0x05, 1000, 1};
 static int last_blink_time = 0;
 static int led_is_on = 1;
 
-/* ===== アクセサ ===== */
 ledvp lv(void)
 {
   return &_ledValue;
 }
 
-/* ===== 設定関数 ===== */
 void led(int bitPattern)
 {
   _ledValue.pattern = bitPattern;
+  return;
 }
 
 void ledblinkmode(int mode)
@@ -38,6 +33,7 @@ void ledblinkmode(int mode)
   _ledValue.mode = mode;
   last_blink_time = timer_get_timerv0()->count;
   led_is_on = 1;
+  return;
 }
 
 void ledblinktime(int msec)
@@ -45,68 +41,66 @@ void ledblinktime(int msec)
   _ledValue.period = msec;
   last_blink_time = timer_get_timerv0()->count;
   led_is_on = 1;
+  return;
 }
 
-/* ===== 実行関数 ===== */
 void ledexec(void)
 {
   int current_time = timer_get_timerv0()->count;
+  int current_msec = current_time * 100; /* COUNT_100MSECなので1count=100msec */
   int adjusted_period = _ledValue.period;
   int half_period;
   int elapsed_time;
 
-  /* ===== mode 0: 常時点灯 ===== */
+  if (adjusted_period < 200) {
+    adjusted_period = 200;
+  }
+
   if (_ledValue.mode == 0) {
     ledout(_ledValue.pattern);
     return;
   }
-
-  /* ===== mode 1: 切り捨て ===== */
-  else if (_ledValue.mode == 1) {
-    adjusted_period = (_ledValue.period / 200) * 200;
+  if (_ledValue.mode == 1) {
+    adjusted_period = (adjusted_period / 200) * 200;
+    if (adjusted_period < 200) { adjusted_period = 200; }
   }
-
-  /* ===== mode 2: 四捨五入 ===== */
-  else if (_ledValue.mode == 2) {
-    adjusted_period = ((_ledValue.period + 100) / 200) * 200;
+  if (_ledValue.mode == 2) {
+    adjusted_period = ((adjusted_period + 100) / 200) * 200;
+    if (adjusted_period < 200) { adjusted_period = 200; }
   }
-
-  /* ===== mode 3: 位相制御 ===== */
-  else if (_ledValue.mode == 3) {
-    int blink_phase = (current_time * 200) % _ledValue.period;
-
-    if (blink_phase < (_ledValue.period / 2)) {
+  if (_ledValue.mode == 3) {
+    if ((current_msec % adjusted_period) < (adjusted_period / 2)) {
       ledout(_ledValue.pattern);
-    } else {
+    }
+    else {
       ledout(0);
     }
     return;
   }
 
-  /* ===== 共通点滅処理（mode1,2） ===== */
   half_period = adjusted_period / 2;
-  elapsed_time = (current_time - last_blink_time) * 10;
+  elapsed_time = (current_time - last_blink_time) * 100;
 
   if (elapsed_time >= half_period) {
     led_is_on = !led_is_on;
-
     if (led_is_on) {
       ledout(_ledValue.pattern);
-    } else {
+    }
+    else {
       ledout(0);
     }
-
     last_blink_time = current_time;
   }
+  return;
 }
 
-/* ===== 出力処理 ===== */
 void ledout(int n)
-{
+{ // bit4は使用できない、bit4以外は1で点灯
   static int oled = 0;
-
-  if (oled != n) {
+  if (oled != n)
+  { // 同じ場合は実行しない。
     oled = n;
-    PBDR = ~(((n & 0xf0) << 1) | (n & 0x0f));
+    PBDR = ~(((n & 0xf0) << 1) | (n & 0x0f)); // 2022.01.26 mod
   }
+  return;
 }
