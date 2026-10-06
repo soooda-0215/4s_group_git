@@ -1,0 +1,26 @@
+@startuml
+left to right direction
+actor 利用者 as u
+package クリックカウンター {
+  usecase "カウントアップする" as UC1
+  usecase "カウントを確認する" as UC2
+  usecase "カウントをリセットする" as UC3
+}
+u --> UC1
+u --> UC2
+u --> UC3
+
+note right of (UC1)
+   「カウントアップする」操作を行うごとに、数値が一つずつ増える。
+   初期値は0である。   
+end note
+
+note right of (UC2)
+  　現在の数値を確認する。
+end note
+
+note right of (UC2)
+  　「カウントリセットする」操作を行うごとに、数値が初期値0になる。
+end note
+
+@enduml

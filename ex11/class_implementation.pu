@@ -1,0 +1,9 @@
+@startuml
+class Counter {
+- counter: int = 0
+
++countUp():void
++getCount(): int
++countReset():void
+}
+@enduml

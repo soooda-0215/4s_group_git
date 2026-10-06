@@ -1,0 +1,12 @@
+@startuml
+main -> counter : countUp()
+counter --> main 
+main -> counter : countUp()
+counter --> main 
+main -> counter : getCount()
+counter --> main : 2
+main -> counter : countReset()
+counter --> main
+main -> counter : getCount()
+counter --> main : 0
+@enduml
