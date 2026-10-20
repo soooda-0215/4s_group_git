@@ -1,0 +1,898 @@
+%!PS-Adobe-1.0
+% pad2ps PostScript output
+%   S. Yoshida (seiichi@muraoka.info.waseda.ac.jp)
+%
+%
+clippath pathbbox
+/page-height exch def
+/page-width exch def
+pop pop
+%
+/move2show {
+   moveto show
+} def
+%
+% PAD line -- usage: x0 y0 w h line
+/line {
+   neg 4 -2 roll moveto rlineto
+} def
+%
+% PAD box -- usage: x0 y0 w h box
+/box {
+   4 -2 roll moveto
+   dup neg 0 exch rlineto
+   exch dup 0 rlineto
+   exch dup 0 exch rlineto
+   pop pop
+   closepath
+} def
+%
+% PAD circle -- usage: x0 y0 w h circle
+/circle {
+   dup 3 -1 roll dup 3 -1 roll 6 -1 roll dup 7 -1 roll dup
+   8 -1 roll 2 idiv sub 3 -1 roll 7 -1 roll add
+   exch moveto
+   4 -2 roll dup 3 -1 roll dup 3 1 roll
+   div dup dup 7 2 roll 1 exch scale
+   dup 5 1 roll
+   3 1 roll 2 idiv sub 5 -1 roll div
+   3 1 roll 2 idiv add
+   exch 3 -1 roll 2 idiv 0 360 arc
+   1 exch div 1 exch scale
+} def
+%
+% PAD ifline -- usage: x0 y0 w h ifline
+/ifline {
+   4 -2 roll moveto
+   dup neg 0 exch rlineto
+   exch dup 0 rlineto
+   exch dup 2 idiv dup -200 exch rlineto
+   sub 200 exch rlineto
+   pop
+} def
+%
+% PAD ifbox -- usage: x0 y0 w h ifbox
+/ifbox {
+   ifline closepath
+} def
+%
+/clippingpath {
+   newpath
+   0 9800 moveto
+   0 0 lineto
+   9000 0 lineto
+   9000 9800 lineto
+   closepath
+} def
+%
+/pageframe {
+   8 setlinewidth
+   newpath
+   0 9800 moveto
+   0 0 lineto
+   9000 0 lineto
+   9000 9800 lineto
+   closepath stroke
+} def
+%
+/Courier findfont 200 scalefont setfont
+%
+%%PageTrailer
+%%Page: 1 1
+%
+%
+% newpage
+%
+page-width 538.583 sub 2 div
+page-height 538.583 sub 2 div
+translate
+%
+0.06 0.06 scale
+%
+clippingpath clip
+%
+/Courier-Bold findfont [334 0 0 400 0 0] makefont setfont
+(DetailPadV2.c) 3200 9430 move2show
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+(Ver\(1.20\)) 3825 8730 move2show
+8 setlinewidth
+newpath
+  3475 8450 2050 0 line
+  3475 8450 0 610 line
+  5525 8450 0 610 line
+stroke
+16 setlinewidth
+newpath
+  3775 8270 1450 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+("2026/10/20") 3900 8085 move2show
+8 setlinewidth
+newpath
+  3475 7840 2050 0 line
+stroke
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+(ledv *lv\(void\)) 3450 7060 move2show
+newpath
+  3225 6780 2550 0 line
+  3225 6780 0 610 line
+  5775 6780 0 610 line
+stroke
+16 setlinewidth
+newpath
+  3525 6600 1950 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(return &_ledValue) 3650 6415 move2show
+8 setlinewidth
+newpath
+  3225 6170 2550 0 line
+stroke
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+(void ledout\(int n\)) 3150 5390 move2show
+newpath
+  2475 5110 4050 0 line
+  2475 5110 0 1720 line
+  6525 5110 0 1720 line
+stroke
+16 setlinewidth
+newpath
+  2775 4930 3450 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(説明：) 2900 4725 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(LED) 3500 4745 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(の) 3800 4725 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(bit4) 4000 4745 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(以外を) 4400 4725 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(2) 5000 4745 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(進数で点灯) 5100 4725 move2show
+newpath
+  2775 4805 0 370 line
+  2775 4560 1750 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(static int oled) 2900 4375 move2show
+newpath
+  2775 4435 0 705 line
+  4325 4190 1050 250 box
+stroke
+(oled = n) 4450 4005 move2show
+newpath
+  4325 4065 0 370 line
+  4125 3880 200 0 line
+  2775 3880 1350 300 ifbox
+stroke
+(oled != n) 2900 3670 move2show
+newpath
+  4325 3820 1850 250 box
+stroke
+(PBDR = ~n | 0x10) 4450 3635 move2show
+8 setlinewidth
+newpath
+  2475 3390 4050 0 line
+stroke
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+(void led\(int n\)) 3375 2610 move2show
+newpath
+  3025 2330 2950 0 line
+  3025 2330 0 980 line
+  5975 2330 0 980 line
+stroke
+16 setlinewidth
+newpath
+  3325 2150 2250 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(説明：) 3450 1945 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(pattern ) 4050 1965 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(の設定) 4850 1945 move2show
+newpath
+  3325 2025 0 370 line
+  3325 1780 2350 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(_ledValue.pattern = n) 3450 1595 move2show
+8 setlinewidth
+newpath
+  3025 1350 2950 0 line
+stroke
+showpage
+clear
+%
+%
+%%PageTrailer
+%%Page: 2 2
+%
+%
+% newpage
+%
+page-width 538.583 sub 2 div
+page-height 538.583 sub 2 div
+translate
+%
+0.06 0.06 scale
+%
+clippingpath clip
+%
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+(void ledblinkmode\(int mode\)) 2475 9019 move2show
+8 setlinewidth
+newpath
+  2675 8739 3650 0 line
+  2675 8739 0 980 line
+  6325 8739 0 980 line
+stroke
+16 setlinewidth
+newpath
+  2975 8559 3050 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(説明：点滅モード) 3100 8354 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(\(mode\)) 4700 8374 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(の設定) 5300 8354 move2show
+newpath
+  2975 8434 0 370 line
+  2975 8189 2350 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(_ledValue.mode = mode) 3100 8004 move2show
+8 setlinewidth
+newpath
+  2675 7759 3650 0 line
+stroke
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+(void ledblinktime\(int msec\)) 2475 6979 move2show
+newpath
+  2675 6699 3650 0 line
+  2675 6699 0 980 line
+  6325 6699 0 980 line
+stroke
+16 setlinewidth
+newpath
+  2975 6519 3050 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(説明：点滅周期) 3100 6314 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(\(period\)) 4500 6334 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(の設定) 5300 6314 move2show
+newpath
+  2975 6394 0 370 line
+  2975 6149 2550 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(_ledValue.period = msec) 3100 5964 move2show
+8 setlinewidth
+newpath
+  2675 5719 3650 0 line
+stroke
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+(void led_handler\(void\)) 2850 4939 move2show
+newpath
+  724 4659 7552 0 line
+  724 4659 0 8685 line
+  8276 4659 0 8685 line
+stroke
+16 setlinewidth
+newpath
+  1024 4479 4050 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(int count = timer_get_timerv0\(\)->count) 1149 4294 move2show
+newpath
+  1024 4354 0 370 line
+  1024 4109 3150 250 box
+stroke
+(int period = _ledValue.period) 1149 3924 move2show
+newpath
+  1024 3984 0 370 line
+  1024 3739 2750 250 box
+stroke
+(int mode = _ledValue.mode) 1149 3554 move2show
+newpath
+  1024 3614 0 370 line
+  1024 3369 1750 250 box
+stroke
+(int blink_phase) 1149 3184 move2show
+newpath
+  1024 3244 0 3417 line
+  2274 2759 1750 250 box
+stroke
+(blink_phase = 0) 2399 2574 move2show
+newpath
+  2274 2634 0 370 line
+stroke
+(mode=0) 1149 2289 move2show
+newpath
+  2074 2449 200 0 line
+  1024 902 1050 -1547 ifline
+  2274 2389 750 250 box
+stroke
+(break) 2399 2204 move2show
+newpath
+  2274 1899 3714 567 circle
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(方法) 2839 1636 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(1) 3239 1656 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(「点滅周期を) 3339 1636 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(200) 4539 1656 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(で割り) 4839 1636 move2show
+(切れる最小単位に切り捨て」) 2839 1436 move2show
+newpath
+  2274 1212 5450 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(blink_phase = count / \(period / MIN_BLINK_PERIOD_MS\)) 2399 1027 move2show
+newpath
+  2274 1087 0 370 line
+stroke
+(mode=1) 1149 842 move2show
+newpath
+  2074 902 200 0 line
+  1024 902 0 1413 line
+  1874 196 200 -706 line
+  1874 196 200 706 line
+  2274 842 750 250 box
+stroke
+(break) 2399 657 move2show
+newpath
+  2274 352 5702 283 circle
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(方法) 3133 131 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(2) 3533 151 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(「点滅周期を) 3633 131 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(200) 4833 151 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(に四捨五入して近似」) 5133 131 move2show
+showpage
+clear
+%
+%
+%%PageTrailer
+%%Page: 3 3
+%
+%
+% newpage
+%
+page-width 538.583 sub 2 div
+page-height 538.583 sub 2 div
+translate
+%
+0.06 0.06 scale
+%
+clippingpath clip
+%
+8 setlinewidth
+newpath
+  724 14459 0 8685 line
+  8276 14459 0 8685 line
+stroke
+16 setlinewidth
+newpath
+  1024 13044 0 3417 line
+  1024 10702 0 1413 line
+  1874 9996 200 -706 line
+  1874 9996 200 706 line
+  2274 9749 4250 450 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(blink_phase = count / \(\(period + MIN_BLI) 2399 9564 move2show
+(NK_PERIOD_MS / 2\) / MIN_BLINK_PERIOD_MS\)) 2399 9364 move2show
+newpath
+  1024 9627 0 3363 line
+  2274 9524 0 470 line
+stroke
+(mode=2) 1149 9229 move2show
+newpath
+  2074 9289 200 0 line
+  1024 9289 1050 2165 ifline
+  2274 9179 750 250 box
+stroke
+(break) 2399 8994 move2show
+newpath
+  2274 8689 5631 1135 circle
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(方法) 3122 8342 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(3) 3522 8362 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(「カウント値と点滅周期に応じて、長) 3622 8342 move2show
+(期的に正確な周期になるように点滅を判断) 3122 8142 move2show
+(」) 3122 7942 move2show
+newpath
+  2274 7434 5250 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(blink_phase = count * MIN_BLINK_PERIOD_MS / period) 2399 7249 move2show
+(mode=3) 1149 7164 move2show
+newpath
+  2274 7309 0 370 line
+  2074 7124 200 0 line
+  2274 7064 750 250 box
+stroke
+(break) 2399 6879 move2show
+newpath
+  3674 6574 2750 250 box
+stroke
+(ledout\(_ledValue.pattern\)) 3799 6389 move2show
+newpath
+  3474 6449 200 0 line
+  1024 6449 2450 370 ifbox
+stroke
+(blink_phase % 2 == 0) 1149 6204 move2show
+newpath
+  3674 6204 1150 250 box
+stroke
+(ledout\(0\)) 3799 6019 move2show
+newpath
+  3474 6079 200 0 line
+stroke
+8 setlinewidth
+newpath
+  724 5774 7552 0 line
+stroke
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+(int main\(int argc, char **argv\)) 2175 4994 move2show
+newpath
+  375 4714 8250 0 line
+  375 4714 0 5595 line
+  8625 4714 0 5595 line
+stroke
+16 setlinewidth
+newpath
+  675 4534 1050 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(初期化) 800 4329 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(\(\)) 1400 4349 move2show
+newpath
+  675 4409 0 2110 line
+  1275 4164 3750 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(スタートとストップの同時押しで) 1400 3959 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(break) 4400 3979 move2show
+newpath
+  1275 4039 0 370 line
+  1275 3794 3350 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(スタートスイッチで) 1400 3589 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+( motor_on = 1) 3200 3609 move2show
+newpath
+  1275 3669 0 370 line
+  1275 3424 3350 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(ストップスイッチで) 1400 3219 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+( motor_on = 0) 3200 3239 move2show
+newpath
+  1275 3299 0 370 line
+  1275 3054 7050 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(モータ制御) 1400 2849 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(\(motor_on) 2400 2869 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(とトグルスイッチでモータの正転・逆転・停止を制御) 3300 2849 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(\)) 8100 2869 move2show
+newpath
+  1275 2929 0 370 line
+  1275 2684 3450 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(モータ回転数) 1400 2479 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(\() 2600 2499 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(モータの回転を検出) 2700 2479 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(\)) 4500 2499 move2show
+newpath
+  1275 2559 0 370 line
+  675 2424 400 250 box
+  725 2424 0 250 line
+stroke
+(1) 850 2239 move2show
+newpath
+  1275 2314 2350 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(数値) 1400 2109 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(LED) 1800 2129 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(に回転数を表示) 2100 2109 move2show
+newpath
+  1075 2299 200 0 line
+  675 2299 0 2135 line
+  1275 2189 0 370 line
+  1275 1944 1850 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(led\(led_pattern\)) 1400 1759 move2show
+newpath
+  1275 1819 0 370 line
+  1275 1574 4150 250 box
+stroke
+(init_timer0\(COUNT_100MSEC, led_handler\)) 1400 1389 move2show
+newpath
+  1275 1449 0 370 line
+  1275 1204 2650 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(タイマー初期化・関数登録) 1400 999 move2show
+newpath
+  1275 1079 0 520 line
+  2425 834 3650 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(motor_rotation_count) 2550 649 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(の値を表示する) 4550 629 move2show
+newpath
+  2225 709 200 0 line
+  1275 709 950 300 ifbox
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(debug) 1400 499 move2show
+newpath
+  675 289 1050 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(後処理) 800 84 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(\(\)) 1400 104 move2show
+newpath
+  675 164 0 370 line
+stroke
+showpage
+clear
+%
+%
+%%PageTrailer
+%%Page: 4 4
+%
+%
+% newpage
+%
+page-width 538.583 sub 2 div
+page-height 538.583 sub 2 div
+translate
+%
+0.06 0.06 scale
+%
+clippingpath clip
+%
+8 setlinewidth
+newpath
+  375 14514 0 5595 line
+  8625 14514 0 5595 line
+stroke
+16 setlinewidth
+newpath
+  675 9964 0 370 line
+  675 9719 1850 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(利用方法の表示) 800 9514 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(\(\)) 2200 9534 move2show
+newpath
+  675 9594 0 370 line
+  675 9349 1050 250 box
+stroke
+(return 0) 800 9164 move2show
+8 setlinewidth
+newpath
+  375 8919 8250 0 line
+stroke
+showpage
+clear
+%
+%
+%%PageTrailer
+%%Page: 5 5
+%
+%
+% newpage
+%
+page-width 538.583 sub 2 div
+page-height 538.583 sub 2 div
+translate
+%
+0.06 0.06 scale
+%
+clippingpath clip
+%
+/Ryumin-Light-EUC-H findfont [300 0 0 300 0 0] makefont setfont
+(詳細) 3525 8999 move2show
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+( ) 4125 9019 move2show
+/Ryumin-Light-EUC-H findfont [300 0 0 300 0 0] makefont setfont
+(初期化) 4275 8999 move2show
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+(\(\)) 5175 9019 move2show
+8 setlinewidth
+newpath
+  625 8739 7750 0 line
+  625 8739 0 4550 line
+  8375 8739 0 4550 line
+stroke
+16 setlinewidth
+newpath
+  925 8559 2050 250 box
+stroke
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(変数の宣言と初期化) 1050 8354 move2show
+newpath
+  925 8434 0 370 line
+  925 8189 7050 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(argv) 1050 8004 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(から「) 1450 7984 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+( -N) 2050 8004 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(」オプション（点灯パターン）を読み取り) 2350 7984 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(led_pattern) 6150 8004 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(に代入) 7250 7984 move2show
+newpath
+  925 8064 0 370 line
+  925 7819 7150 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(argv) 1050 7634 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(から「) 1450 7614 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+( -F) 2050 7634 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(」オプション（点滅モード）を読み取り) 2350 7614 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(led_blink_mode) 5950 7634 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(に代入) 7350 7614 move2show
+newpath
+  925 7694 0 370 line
+  925 7449 7150 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(argv) 1050 7264 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(から「) 1450 7244 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+( -B) 2050 7264 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(」オプション（点滅周期）を読み取り) 2350 7244 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(led_blink_period) 5750 7264 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(に代入) 7350 7244 move2show
+newpath
+  925 7324 0 370 line
+  925 7079 7050 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(argv) 1050 6894 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(から「) 1450 6874 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+( -DEBUG) 2050 6894 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(」オプション（デバッグモード）を読み取り) 2750 6874 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(debug) 6750 6894 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(を設定) 7250 6874 move2show
+newpath
+  925 6954 0 490 line
+  925 6589 4250 250 box
+stroke
+(点灯パターン、点滅モード、点滅周期の表示) 1050 6384 move2show
+newpath
+  925 6464 0 370 line
+  925 6219 1850 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(H8) 1050 6034 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(ポートの初期化) 1250 6014 move2show
+newpath
+  925 6094 0 490 line
+  925 5729 3450 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(init_timer0\(COUNT_100MSEC, null\)) 1050 5544 move2show
+newpath
+  925 5604 0 370 line
+  925 5359 1850 250 box
+stroke
+(led\(led_pattern\)) 1050 5174 move2show
+newpath
+  925 5234 0 370 line
+  925 4989 3050 250 box
+stroke
+(ledblinkmode\(led_blink_mode\)) 1050 4804 move2show
+newpath
+  925 4864 0 370 line
+  925 4619 3250 250 box
+stroke
+(ledblinktime\(led_blink_period\)) 1050 4434 move2show
+8 setlinewidth
+newpath
+  625 4189 7750 0 line
+stroke
+/Ryumin-Light-EUC-H findfont [300 0 0 300 0 0] makefont setfont
+(詳細) 3525 3389 move2show
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+( ) 4125 3409 move2show
+/Ryumin-Light-EUC-H findfont [300 0 0 300 0 0] makefont setfont
+(後処理) 4275 3389 move2show
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+(\(\)) 5175 3409 move2show
+newpath
+  3275 3129 2450 0 line
+  3275 3129 0 1720 line
+  5725 3129 0 1720 line
+stroke
+16 setlinewidth
+newpath
+  3575 2949 1450 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(motor_stop\(\)) 3700 2764 move2show
+newpath
+  3575 2824 0 370 line
+  3575 2579 1550 250 box
+stroke
+(stop_timer0\(\)) 3700 2394 move2show
+newpath
+  3575 2454 0 370 line
+  3575 2209 1150 250 box
+stroke
+(ledout\(0\)) 3700 2024 move2show
+newpath
+  3575 2084 0 370 line
+  3575 1839 1850 250 box
+stroke
+(number_led_off\(\)) 3700 1654 move2show
+8 setlinewidth
+newpath
+  3275 1409 2450 0 line
+stroke
+showpage
+clear
+%
+%
+%%PageTrailer
+%%Page: 6 6
+%
+%
+% newpage
+%
+page-width 538.583 sub 2 div
+page-height 538.583 sub 2 div
+translate
+%
+0.06 0.06 scale
+%
+clippingpath clip
+%
+/Ryumin-Light-EUC-H findfont [300 0 0 300 0 0] makefont setfont
+(詳細) 2925 8999 move2show
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+( ) 3525 9019 move2show
+/Ryumin-Light-EUC-H findfont [300 0 0 300 0 0] makefont setfont
+(利用方法の表示) 3675 8999 move2show
+/Courier findfont [250 0 0 300 0 0] makefont setfont
+(\(\)) 5775 9019 move2show
+8 setlinewidth
+newpath
+  1975 8739 5050 0 line
+  1975 8739 0 2090 line
+  7025 8739 0 2090 line
+stroke
+16 setlinewidth
+newpath
+  2275 8559 4450 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(usage) 2400 8374 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(：) 2900 8354 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+( %s\(argv[0]\) -Bxxx -Fy -Nzz -DEBUG1) 3100 8374 move2show
+newpath
+  2275 8434 0 370 line
+  2275 8189 2250 250 box
+stroke
+(xxx) 2400 8004 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(：) 2700 7984 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+( ) 2900 8004 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(点滅周期) 3000 7984 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+([msec]) 3800 8004 move2show
+newpath
+  2275 8064 0 370 line
+  2275 7819 2250 250 box
+stroke
+(y) 2400 7634 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(：) 2500 7614 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+( 0) 2700 7634 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(〜) 2900 7614 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(3) 3100 7634 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(の点滅モード) 3200 7614 move2show
+newpath
+  2275 7694 0 370 line
+  2275 7449 1950 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(zz) 2400 7264 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(：) 2600 7244 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+( ) 2800 7264 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(点灯パターン) 2900 7244 move2show
+newpath
+  2275 7324 0 370 line
+  2275 7079 3750 250 box
+stroke
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+(DEBUG1) 2400 6894 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(：) 3000 6874 move2show
+/Courier findfont [167 0 0 200 0 0] makefont setfont
+( ) 3200 6894 move2show
+/Ryumin-Light-EUC-H findfont [200 0 0 200 0 0] makefont setfont
+(デバッグモードを有効にする) 3300 6874 move2show
+8 setlinewidth
+newpath
+  1975 6649 5050 0 line
+stroke
+showpage
+clear
+%%PageTrailer
+%%Pages: 6
+% End of pad2ps PostScript output
