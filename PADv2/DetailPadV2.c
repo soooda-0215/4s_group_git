@@ -1,44 +1,8 @@
 /* c2pad h8sampleledDETAIL */
 
-Ver(1.20)
+Ver(2.00)
 {
 	"2026/10/20";
-}
-
-ledv *lv(void)
-{
-	return &_ledValue;
-}
-
-void ledout(int n)
-{ // bit4は消灯(使用できない)、bit4以外は1で点灯
-	説明：LEDのbit4以外を2進数で点灯;
-	static int oled;
-	if (oled != n)
-	{
-		oled = n;
-		PBDR = ~n | 0x10;
-	}
-}
-
-void led(int n)
-{
-	説明：pattern の設定;
-	_ledValue.pattern = n;
-}
-
-/* pad2ps: newpage */
-
-void ledblinkmode(int mode)
-{
-	説明：点滅モード(mode)の設定;
-	_ledValue.mode = mode;
-}
-
-void ledblinktime(int msec)
-{
-	説明：点滅周期(period)の設定;
-	_ledValue.period = msec;
 }
 
 void led_handler(void)
@@ -94,8 +58,6 @@ int main(int argc, char **argv)
 		モータ回転数(モータの回転を検出);
 		数値LEDに回転数を表示;
 		led(led_pattern);
-		init_timer0(COUNT_100MSEC, led_handler);
-		タイマー初期化・関数登録; 
 		if (debug)
 		{
 			motor_rotation_countの値を表示する;
@@ -119,10 +81,11 @@ int main(int argc, char **argv)
   点灯パターン、点滅モード、点滅周期の表示;
   H8ポートの初期化;
 
-  init_timer0(COUNT_100MSEC, null);
+  init_timer0(COUNT_100MSEC, );
   led(led_pattern);
   ledblinkmode(led_blink_mode);
   ledblinktime(led_blink_period);
+  init_timer0(COUNT_100MSEC, led_handler);
 }
 
 詳細 後処理()
